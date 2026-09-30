@@ -17,8 +17,18 @@ model User {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   role        Role     @default(USER)
+
+   profile     Profile?
 }
 
+model Profile {
+  id        Int    @id @default(autoincrement())
+  bio       String?
+  address   String?
+
+  userId    Int    @unique
+  user      User   @relation(fields: [userId], references: [id])
+}
 
 enum Role {
   USER
